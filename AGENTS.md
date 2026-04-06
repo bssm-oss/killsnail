@@ -83,6 +83,7 @@ scripts/build_dmg.sh 0.1.0
 - 기능 의미가 바뀌면 `README.md` 또는 `docs/changes/`를 갱신합니다.
 - 아키텍처 판단이 바뀌면 `docs/architecture/`를 갱신합니다.
 - 테스트 전략이 바뀌면 `docs/testing/`를 갱신합니다.
+- 버전 태깅/릴리즈 자동화가 바뀌면 `.github/workflows/`와 관련 문서를 함께 갱신합니다.
 
 ## 테스트 원칙
 

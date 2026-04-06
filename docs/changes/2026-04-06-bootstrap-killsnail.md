@@ -17,6 +17,7 @@
 - AppKit 메뉴바/달팽이/오버레이 UI 추가
 - XCTest 기반 코어 테스트 추가
 - GitHub Actions CI / Release workflow 추가
+- main 브랜치 버전 변경 시 태그를 자동 생성하는 workflow 추가
 - DMG 생성 및 Homebrew cask 업데이트 스크립트 추가
 - README / AGENTS / 아키텍처 문서 추가
 

@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - "v*"
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -11,6 +12,8 @@ permissions:
 jobs:
   build-release:
     runs-on: macos-14
+    env:
+      DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
 
     steps:
       - name: Checkout
@@ -69,11 +72,11 @@ jobs:
           GIT_COMMITTER_EMAIL: github-actions@github.com
         run: |
           SHA=$(shasum -a 256 ".build/artifacts/KillSnail-v${GITHUB_REF_NAME#v}.dmg" | awk '{print $1}')
-          git fetch origin main
-          git switch main
+          git fetch origin "$DEFAULT_BRANCH"
+          git switch -C "$DEFAULT_BRANCH" "origin/$DEFAULT_BRANCH"
           scripts/update_cask.sh "${GITHUB_REF_NAME#v}" "$SHA"
           if ! git diff --quiet -- Casks/killsnail.rb; then
             git add Casks/killsnail.rb
             git commit -m "ci(cask): update Homebrew cask for ${GITHUB_REF_NAME#v}"
-            git push origin main
+            git push origin "$DEFAULT_BRANCH"
           fi
