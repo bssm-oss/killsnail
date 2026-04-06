@@ -11,11 +11,15 @@ final class StatusItemController {
     private let stateItem = NSMenuItem(title: "상태: 준비 중", action: nil, keyEquivalent: "")
     private let pauseItem = NSMenuItem(title: "잠시 멈춤", action: #selector(togglePause), keyEquivalent: "p")
     private let resetItem = NSMenuItem(title: "리셋", action: #selector(reset), keyEquivalent: "r")
+    private let activeIcon = PixelSnailArt.shared.makeStatusImage(pointSize: 18, isPaused: false)
+    private let pausedIcon = PixelSnailArt.shared.makeStatusImage(pointSize: 18, isPaused: true)
 
     init() {
-        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-        statusItem.button?.title = "🐌"
-        statusItem.button?.font = .systemFont(ofSize: 18)
+        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+        statusItem.button?.title = ""
+        statusItem.button?.image = activeIcon
+        statusItem.button?.imagePosition = .imageOnly
+        statusItem.button?.toolTip = "KillSnail"
 
         stateItem.isEnabled = false
         menu.addItem(stateItem)
@@ -36,6 +40,8 @@ final class StatusItemController {
     }
 
     func update(for phase: SnailPhase) {
+        statusItem.button?.image = phase == .paused ? pausedIcon : activeIcon
+
         switch phase {
         case .idle:
             stateItem.title = "상태: 준비 중"

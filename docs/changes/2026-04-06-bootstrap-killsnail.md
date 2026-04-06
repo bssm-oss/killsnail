@@ -20,6 +20,7 @@
 - main 브랜치 버전 변경 시 태그를 자동 생성하는 workflow 추가
 - DMG 생성 및 Homebrew cask 업데이트 스크립트 추가
 - README / AGENTS / 아키텍처 문서 추가
+- 이모지 기반 달팽이를 커스텀 픽셀 아트 달팽이와 앱 아이콘으로 교체
 
 ## 설계 이유
 
@@ -45,11 +46,11 @@
 
 - 초기 릴리즈는 unsigned / not notarized 상태일 수 있습니다.
 - Homebrew 설치 경로는 제공되지만 Gatekeeper friction을 제거하지는 못합니다.
-- 달팽이 시각 리소스는 현재 이모지 기반이며 후속 개선 여지가 있습니다.
+- unsigned / not notarized 상태에서는 첫 실행 시 로컬 승인 또는 quarantine 해제가 필요할 수 있습니다.
 
 ## 후속 과제
 
 - Developer ID signing / notarization 도입
-- 애니메이션 리소스 고도화
+- 걷기/대기 프레임 애니메이션 추가
 - 릴리즈 노트 자동 생성
 - 다중 모니터 동작 세부 개선

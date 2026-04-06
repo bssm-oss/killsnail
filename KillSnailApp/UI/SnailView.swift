@@ -1,24 +1,14 @@
 import AppKit
 
 final class SnailView: NSView {
-    private let label = NSTextField(labelWithString: "🐌")
+    private var isPaused = false
+    private var facing: PixelSnailFacing = .right
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
 
         wantsLayer = true
         layer?.backgroundColor = NSColor.clear.cgColor
-
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.alignment = .center
-        label.font = .systemFont(ofSize: 38)
-
-        addSubview(label)
-
-        NSLayoutConstraint.activate([
-            label.centerXAnchor.constraint(equalTo: centerXAnchor),
-            label.centerYAnchor.constraint(equalTo: centerYAnchor)
-        ])
     }
 
     @available(*, unavailable)
@@ -26,8 +16,21 @@ final class SnailView: NSView {
         nil
     }
 
-    func update(emoji: String, isPaused: Bool) {
-        label.stringValue = emoji
-        label.alphaValue = isPaused ? 0.5 : 1.0
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
+
+        guard let context = NSGraphicsContext.current?.cgContext else { return }
+        PixelSnailArt.shared.drawSprite(
+            in: bounds.insetBy(dx: 2, dy: 2),
+            facing: facing,
+            alpha: isPaused ? 0.6 : 1.0,
+            context: context
+        )
+    }
+
+    func update(isPaused: Bool, facing: PixelSnailFacing) {
+        self.isPaused = isPaused
+        self.facing = facing
+        needsDisplay = true
     }
 }
