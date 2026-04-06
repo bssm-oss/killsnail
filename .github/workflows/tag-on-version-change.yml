@@ -1,0 +1,50 @@
+name: Tag On Version Change
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  tag-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Read project version
+        id: version
+        run: |
+          VERSION=$(python3 scripts/read_version.py)
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Create tag when missing
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="v${{ steps.version.outputs.version }}"
+
+          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "Release already exists for $TAG"
+            exit 0
+          fi
+
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            echo "Tag already exists locally: $TAG"
+            exit 0
+          fi
+
+          if git ls-remote --tags origin "$TAG" | grep -q "$TAG"; then
+            echo "Tag already exists remotely: $TAG"
+            exit 0
+          fi
+
+          git tag "$TAG"
+          git push origin "$TAG"

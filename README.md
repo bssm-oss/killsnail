@@ -132,6 +132,7 @@ KillSnail은 세 층으로 나뉩니다.
 ## CI 개요
 
 - `CI`: push / pull_request 에서 Xcode 프로젝트 생성 후 테스트 실행
+- `Tag On Version Change`: `main` 브랜치에 버전 변경이 push되면 해당 버전 태그를 자동 생성
 - `Release`: `v*` 태그 push 시 테스트 → DMG/ZIP 생성 → GitHub Release 업로드 → cask 업데이트
 
 ## 알려진 제한 사항
