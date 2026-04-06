@@ -1,0 +1,58 @@
+name: KillSnail
+options:
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: 5.10
+    MACOSX_DEPLOYMENT_TARGET: 14.0
+    MARKETING_VERSION: 0.1.0
+    CURRENT_PROJECT_VERSION: 1
+    CODE_SIGNING_ALLOWED: NO
+    GENERATE_INFOPLIST_FILE: YES
+targets:
+  KillSnailCore:
+    type: framework
+    platform: macOS
+    sources:
+      - KillSnailCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: oss.bssm.killsnail.core
+        PRODUCT_NAME: KillSnailCore
+        DEFINES_MODULE: YES
+        SKIP_INSTALL: YES
+  KillSnail:
+    type: application
+    platform: macOS
+    deploymentTarget: "14.0"
+    sources:
+      - KillSnailApp
+    dependencies:
+      - target: KillSnailCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: oss.bssm.killsnail
+        PRODUCT_NAME: KillSnail
+        INFOPLIST_KEY_CFBundleDisplayName: KillSnail
+        INFOPLIST_KEY_LSUIElement: YES
+        INFOPLIST_KEY_NSPrincipalClass: NSApplication
+        LD_RUNPATH_SEARCH_PATHS: $(inherited) @executable_path/../Frameworks
+  KillSnailTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - KillSnailTests
+    dependencies:
+      - target: KillSnailCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: oss.bssm.killsnail.tests
+schemes:
+  KillSnail:
+    build:
+      targets:
+        KillSnail: all
+        KillSnailCore: all
+    test:
+      targets:
+        - KillSnailTests
