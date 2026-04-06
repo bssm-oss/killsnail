@@ -33,18 +33,18 @@ final class DeathOverlayWindowController: NSWindowController {
         nil
     }
 
-    func show(on screen: NSScreen?, scale: Double) {
+    func show(on screen: NSScreen?, scale: Double, earnedMoney: String) {
         guard let window else { return }
         if let screen {
             window.setFrame(screen.frame, display: true)
         }
 
-        overlayView.update(scale: scale)
+        overlayView.update(scale: scale, earnedMoney: earnedMoney)
         window.orderFrontRegardless()
     }
 
-    func update(scale: Double) {
-        overlayView.update(scale: scale)
+    func update(scale: Double, earnedMoney: String) {
+        overlayView.update(scale: scale, earnedMoney: earnedMoney)
     }
 
     func hide() {
