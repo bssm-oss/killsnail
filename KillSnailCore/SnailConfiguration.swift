@@ -4,6 +4,7 @@ public struct SnailConfiguration: Equatable, Sendable {
     public let spriteSize: Double
     public let collisionRadius: Double
     public let movementSpeed: Double
+    public let earningsPerSecond: Double
     public let updateInterval: TimeInterval
     public let deathPulseFrequency: Double
     public let deathSecondaryFrequency: Double
@@ -13,6 +14,7 @@ public struct SnailConfiguration: Equatable, Sendable {
         spriteSize: Double = 56,
         collisionRadius: Double = 24,
         movementSpeed: Double = 18,
+        earningsPerSecond: Double = 100_000_000,
         updateInterval: TimeInterval = 0.05,
         deathPulseFrequency: Double = 6.2,
         deathSecondaryFrequency: Double = 14.0,
@@ -21,6 +23,7 @@ public struct SnailConfiguration: Equatable, Sendable {
         self.spriteSize = spriteSize
         self.collisionRadius = collisionRadius
         self.movementSpeed = movementSpeed
+        self.earningsPerSecond = earningsPerSecond
         self.updateInterval = updateInterval
         self.deathPulseFrequency = deathPulseFrequency
         self.deathSecondaryFrequency = deathSecondaryFrequency
