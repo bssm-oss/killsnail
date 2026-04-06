@@ -16,7 +16,8 @@ public final class SnailGameEngine {
             snailPosition: zero,
             cursorPosition: zero,
             activeScreen: rect,
-            deathScale: 1
+            deathScale: 1,
+            earnedMoney: 0
         )
     }
 
@@ -28,7 +29,8 @@ public final class SnailGameEngine {
             snailPosition: spawnPoint(oppositeTo: cursor, in: activeScreen),
             cursorPosition: cursor,
             activeScreen: activeScreen,
-            deathScale: 1
+            deathScale: 1,
+            earnedMoney: 0
         )
         return snapshot
     }
@@ -79,6 +81,8 @@ public final class SnailGameEngine {
             return snapshot
 
         case .chasing:
+            snapshot.earnedMoney += configuration.earningsPerSecond * deltaTime
+
             let dx = cursor.x - snapshot.snailPosition.x
             let dy = cursor.y - snapshot.snailPosition.y
             let distance = hypot(dx, dy)
