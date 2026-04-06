@@ -77,6 +77,7 @@ final class GameCoordinator {
 
     private func apply(snapshot: GameSnapshot) {
         statusItemController.update(for: snapshot.phase)
+        let facing = snailFacing(for: snapshot)
 
         switch snapshot.phase {
         case .dead:
@@ -87,12 +88,12 @@ final class GameCoordinator {
 
         case .paused:
             snailWindowController.show(position: snapshot.snailPosition, size: engine.configuration.spriteSize)
-            snailWindowController.update(emoji: "🐌", isPaused: true)
+            snailWindowController.update(isPaused: true, facing: facing)
             overlayWindowController.hide()
 
         case .chasing, .idle:
             snailWindowController.show(position: snapshot.snailPosition, size: engine.configuration.spriteSize)
-            snailWindowController.update(emoji: "🐌", isPaused: false)
+            snailWindowController.update(isPaused: false, facing: facing)
             overlayWindowController.hide()
         }
 
@@ -117,6 +118,10 @@ final class GameCoordinator {
 
     private func screenMatching(_ rect: DesktopRect) -> NSScreen? {
         NSScreen.screens.first(where: { DesktopRect($0.frame) == rect || DesktopRect($0.visibleFrame) == rect })
+    }
+
+    private func snailFacing(for snapshot: GameSnapshot) -> PixelSnailFacing {
+        snapshot.cursorPosition.x < snapshot.snailPosition.x ? .left : .right
     }
 }
 

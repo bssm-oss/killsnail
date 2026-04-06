@@ -1,0 +1,67 @@
+{
+  "canvas": {
+    "width": 16,
+    "height": 16
+  },
+  "palette": {
+    "outline": "#3C2B23",
+    "shell": "#F48EA6",
+    "shellShade": "#D96C85",
+    "shellHighlight": "#FFD7E2",
+    "body": "#8FD39A",
+    "bodyLight": "#D9F6C8",
+    "cheek": "#FFB3BA",
+    "shadow": "#00000022",
+    "iconBackground": "#F8E7A1",
+    "iconInset": "#FFF7D5",
+    "iconGround": "#D7F0B1",
+    "iconGroundShade": "#B9D68A",
+    "sparkle": "#FFFFFF"
+  },
+  "sprite": [
+    { "color": "shadow", "x": 5, "y": 13, "width": 6, "height": 1 },
+    { "color": "shadow", "x": 6, "y": 12, "width": 4, "height": 1 },
+
+    { "color": "outline", "x": 8, "y": 7, "width": 5, "height": 1 },
+    { "color": "outline", "x": 7, "y": 8, "width": 7, "height": 1 },
+    { "color": "outline", "x": 6, "y": 9, "width": 9, "height": 3 },
+    { "color": "outline", "x": 7, "y": 12, "width": 7, "height": 1 },
+    { "color": "outline", "x": 14, "y": 9, "width": 1, "height": 2 },
+    { "color": "body", "x": 8, "y": 8, "width": 5, "height": 1 },
+    { "color": "body", "x": 7, "y": 9, "width": 7, "height": 3 },
+    { "color": "body", "x": 8, "y": 12, "width": 5, "height": 1 },
+    { "color": "body", "x": 13, "y": 9, "width": 1, "height": 2 },
+    { "color": "bodyLight", "x": 9, "y": 9, "width": 3, "height": 1 },
+    { "color": "bodyLight", "x": 9, "y": 10, "width": 4, "height": 2 },
+    { "color": "bodyLight", "x": 10, "y": 12, "width": 2, "height": 1 },
+
+    { "color": "outline", "x": 3, "y": 1, "width": 3, "height": 1 },
+    { "color": "outline", "x": 2, "y": 2, "width": 5, "height": 1 },
+    { "color": "outline", "x": 1, "y": 3, "width": 7, "height": 4 },
+    { "color": "outline", "x": 2, "y": 7, "width": 5, "height": 1 },
+    { "color": "shell", "x": 3, "y": 2, "width": 3, "height": 1 },
+    { "color": "shell", "x": 2, "y": 3, "width": 5, "height": 4 },
+    { "color": "shell", "x": 3, "y": 7, "width": 3, "height": 1 },
+    { "color": "shellHighlight", "x": 3, "y": 3, "width": 2, "height": 1 },
+    { "color": "shellHighlight", "x": 3, "y": 4, "width": 1, "height": 1 },
+    { "color": "shellHighlight", "x": 5, "y": 4, "width": 1, "height": 1 },
+    { "color": "shellShade", "x": 5, "y": 5, "width": 1, "height": 2 },
+    { "color": "shellShade", "x": 4, "y": 6, "width": 2, "height": 1 },
+
+    { "color": "body", "x": 11, "y": 6, "width": 1, "height": 2 },
+    { "color": "body", "x": 13, "y": 6, "width": 1, "height": 2 },
+    { "color": "outline", "x": 11, "y": 5, "width": 1, "height": 1 },
+    { "color": "outline", "x": 13, "y": 5, "width": 1, "height": 1 },
+    { "color": "cheek", "x": 12, "y": 11, "width": 1, "height": 1 }
+  ],
+  "iconBackground": [
+    { "color": "outline", "x": 0, "y": 0, "width": 16, "height": 16 },
+    { "color": "iconBackground", "x": 1, "y": 1, "width": 14, "height": 14 },
+    { "color": "iconInset", "x": 2, "y": 2, "width": 12, "height": 10 },
+    { "color": "iconGround", "x": 2, "y": 12, "width": 12, "height": 2 },
+    { "color": "iconGroundShade", "x": 2, "y": 14, "width": 12, "height": 1 },
+    { "color": "sparkle", "x": 12, "y": 3, "width": 1, "height": 1 },
+    { "color": "sparkle", "x": 11, "y": 4, "width": 1, "height": 1 },
+    { "color": "sparkle", "x": 12, "y": 5, "width": 1, "height": 1 }
+  ]
+}

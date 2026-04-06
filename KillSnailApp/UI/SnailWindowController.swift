@@ -42,7 +42,7 @@ final class SnailWindowController: NSWindowController {
         window?.orderOut(nil)
     }
 
-    func update(emoji: String, isPaused: Bool) {
-        snailView.update(emoji: emoji, isPaused: isPaused)
+    func update(isPaused: Bool, facing: PixelSnailFacing) {
+        snailView.update(isPaused: isPaused, facing: facing)
     }
 }
