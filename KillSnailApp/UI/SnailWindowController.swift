@@ -1,4 +1,5 @@
 import AppKit
+import KillSnailCore
 
 final class SnailWindowController: NSWindowController {
     private let snailView = SnailView(frame: NSRect(x: 0, y: 0, width: 56, height: 56))
