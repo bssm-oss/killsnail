@@ -53,18 +53,21 @@ public struct GameSnapshot: Equatable, Sendable {
     public var cursorPosition: DesktopPoint
     public var activeScreen: DesktopRect
     public var deathScale: Double
+    public var earnedMoney: Double
 
     public init(
         phase: SnailPhase,
         snailPosition: DesktopPoint,
         cursorPosition: DesktopPoint,
         activeScreen: DesktopRect,
-        deathScale: Double
+        deathScale: Double,
+        earnedMoney: Double
     ) {
         self.phase = phase
         self.snailPosition = snailPosition
         self.cursorPosition = cursorPosition
         self.activeScreen = activeScreen
         self.deathScale = deathScale
+        self.earnedMoney = earnedMoney
     }
 }
