@@ -1,0 +1,79 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build-release:
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install build tools
+        run: brew install xcodegen create-dmg
+
+      - name: Validate tag matches project version
+        run: |
+          PROJECT_VERSION="$(python3 scripts/read_version.py)"
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          if [[ "$PROJECT_VERSION" != "$TAG_VERSION" ]]; then
+            echo "Tag version $TAG_VERSION does not match project version $PROJECT_VERSION" >&2
+            exit 1
+          fi
+
+      - name: Run tests
+        run: |
+          xcodegen generate
+          xcodebuild \
+            -project KillSnail.xcodeproj \
+            -scheme KillSnail \
+            -destination 'platform=macOS' \
+            CODE_SIGNING_ALLOWED=NO \
+            test
+
+      - name: Build DMG and zip
+        run: scripts/build_dmg.sh "${GITHUB_REF_NAME#v}"
+
+      - name: Create or update GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "KillSnail $GITHUB_REF_NAME" \
+            --notes "Automated release for $GITHUB_REF_NAME" \
+          || true
+
+          gh release upload "$GITHUB_REF_NAME" \
+            .build/artifacts/KillSnail-v${GITHUB_REF_NAME#v}.dmg \
+            .build/artifacts/KillSnail-v${GITHUB_REF_NAME#v}.zip \
+            .build/artifacts/checksums.txt \
+            --repo "$GITHUB_REPOSITORY" \
+            --clobber
+
+      - name: Update Homebrew cask on main
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GIT_AUTHOR_NAME: github-actions
+          GIT_AUTHOR_EMAIL: github-actions@github.com
+          GIT_COMMITTER_NAME: github-actions
+          GIT_COMMITTER_EMAIL: github-actions@github.com
+        run: |
+          SHA=$(shasum -a 256 ".build/artifacts/KillSnail-v${GITHUB_REF_NAME#v}.dmg" | awk '{print $1}')
+          git fetch origin main
+          git switch main
+          scripts/update_cask.sh "${GITHUB_REF_NAME#v}" "$SHA"
+          if ! git diff --quiet -- Casks/killsnail.rb; then
+            git add Casks/killsnail.rb
+            git commit -m "ci(cask): update Homebrew cask for ${GITHUB_REF_NAME#v}"
+            git push origin main
+          fi

@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - feat/**
+      - fix/**
+      - chore/**
+      - docs/**
+      - refactor/**
+      - test/**
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        run: xcodegen generate
+
+      - name: Run tests
+        run: |
+          xcodebuild \
+            -project KillSnail.xcodeproj \
+            -scheme KillSnail \
+            -destination 'platform=macOS' \
+            CODE_SIGNING_ALLOWED=NO \
+            test
