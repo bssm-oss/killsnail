@@ -78,22 +78,41 @@ final class GameCoordinator {
     private func apply(snapshot: GameSnapshot) {
         statusItemController.update(for: snapshot.phase)
         let facing = snailFacing(for: snapshot)
+        let screen = screenMatching(snapshot.activeScreen) ?? NSScreen.main
+        let earnedMoney = EarnedMoneyFormatter.string(from: snapshot.earnedMoney)
 
         switch snapshot.phase {
         case .dead:
             snailWindowController.hide()
-            let screen = screenMatching(snapshot.activeScreen) ?? NSScreen.main
-            overlayWindowController.show(on: screen, scale: snapshot.deathScale)
-            overlayWindowController.update(scale: snapshot.deathScale)
+            overlayWindowController.show(
+                on: screen,
+                scale: snapshot.deathScale,
+                earnedMoney: earnedMoney
+            )
+            overlayWindowController.update(
+                scale: snapshot.deathScale,
+                earnedMoney: earnedMoney
+            )
 
         case .paused:
-            snailWindowController.show(position: snapshot.snailPosition, size: engine.configuration.spriteSize)
-            snailWindowController.update(isPaused: true, facing: facing)
+            snailWindowController.show(position: snapshot.snailPosition, size: engine.configuration.spriteSize, on: screen)
+            snailWindowController.hideMoneyHUD()
+            snailWindowController.update(
+                isPaused: true,
+                facing: facing,
+                earnedMoney: earnedMoney,
+                on: screen
+            )
             overlayWindowController.hide()
 
         case .chasing, .idle:
-            snailWindowController.show(position: snapshot.snailPosition, size: engine.configuration.spriteSize)
-            snailWindowController.update(isPaused: false, facing: facing)
+            snailWindowController.show(position: snapshot.snailPosition, size: engine.configuration.spriteSize, on: screen)
+            snailWindowController.update(
+                isPaused: false,
+                facing: facing,
+                earnedMoney: earnedMoney,
+                on: screen
+            )
             overlayWindowController.hide()
         }
 
