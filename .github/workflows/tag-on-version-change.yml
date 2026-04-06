@@ -48,3 +48,10 @@ jobs:
 
           git tag "$TAG"
           git push origin "$TAG"
+
+      - name: Trigger release workflow for new tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="v${{ steps.version.outputs.version }}"
+          gh workflow run Release --repo "$GITHUB_REPOSITORY" --ref "$TAG"
