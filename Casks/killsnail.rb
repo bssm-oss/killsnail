@@ -1,6 +1,6 @@
 cask "killsnail" do
-  version "0.1.2"
-  sha256 "27e7f9028a61e4e84bf2c965109ff8e0718551ef3d0c35bcebd9494de19627e1"
+  version "0.1.0"
+  sha256 "627c854b24df276bce7321259e33de66c176a9d5205c55eb686456c596ae41b9"
 
   url "https://github.com/bssm-oss/killsnail/releases/download/v#{version}/KillSnail-v#{version}.dmg",
       verified: "github.com/bssm-oss/killsnail/"
